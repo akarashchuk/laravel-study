@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CreateReportRequest;
 use App\Mail\NewReport;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -13,12 +14,19 @@ class ReportController extends Controller
         return view('report');
     }
 
-    public function store(Request $request)
+    public function store(CreateReportRequest $request)
     {
-        $request->validate([
-            'title' => ['required', 'min:4', 'max:15'],
-        ]);
+        $mail = new NewReport(
+            $request->get('title'),
+            $request->get('email'),
+            $request->get('text'),
+        );
 
-        return redirect()->route('report');
+        Mail::to('info@test.com')->send($mail);
+
+        session()->flash('success', trans('messages.report.success'));
+
+        return redirect()
+            ->back();
     }
 }

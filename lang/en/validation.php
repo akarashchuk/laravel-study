@@ -164,4 +164,10 @@ return [
     | of "email". This simply helps us make our message more expressive.
     |
     */
+
+    'attributes' => [
+        'title' => 'Title',
+        'email' => 'Email',
+        'text' => 'Text',
+    ],
 ];
