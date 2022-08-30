@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ReportController;
 use Illuminate\Support\Facades\Route;
@@ -23,3 +24,9 @@ Route::get('/report', [ReportController::class, 'show'])
 
 Route::post('/report', [ReportController::class, 'store'])
     ->name('report.store');
+
+Route::get('/articles/create', [ArticleController::class, 'createForm'])
+    ->name('article.create.form');
+
+Route::post('/articles/create', [ArticleController::class, 'create'])
+    ->name('article.create');

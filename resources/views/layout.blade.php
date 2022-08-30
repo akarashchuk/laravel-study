@@ -25,7 +25,7 @@
                         <a class="nav-link" href="{{ route('report') }}">Report</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Pricing</a>
+                        <a class="nav-link" href="{{ route('article.create.form') }}">Create Article</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link disabled">Disabled</a>
