@@ -13,4 +13,9 @@ class Article extends Model
         'title',
         'text',
     ];
+
+    protected $dates = [
+        'created_at',
+        'updated_at',
+    ];
 }

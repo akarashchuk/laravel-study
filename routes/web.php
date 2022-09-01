@@ -30,3 +30,15 @@ Route::get('/articles/create', [ArticleController::class, 'createForm'])
 
 Route::post('/articles/create', [ArticleController::class, 'create'])
     ->name('article.create');
+
+Route::get('/articles', [ArticleController::class, 'list'])
+    ->name('article.list');
+
+Route::get('/articles/{id}', [ArticleController::class, 'show'])
+    ->name('article.show');
+
+Route::get('/articles/{id}/edit', [ArticleController::class, 'editForm'])
+    ->name('article.edit.form');
+
+Route::post('/articles/{id}/edit', [ArticleController::class, 'edit'])
+    ->name('article.edit');

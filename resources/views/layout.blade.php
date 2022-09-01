@@ -28,7 +28,7 @@
                         <a class="nav-link" href="{{ route('article.create.form') }}">Create Article</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link disabled">Disabled</a>
+                        <a class="nav-link" href="{{ route('article.list') }}">Articles List</a>
                     </li>
                 </ul>
             </div>
