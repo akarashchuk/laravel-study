@@ -19,12 +19,21 @@
                     <td>{{ $article->title }}</td>
                     <td>{{ $article->created_at?->format('Y/m/d') }}</td>
                     <td>
-                        <a href="{{ route('article.show', ['id' => $article->id]) }}">Show</a>
+                        <a href="{{ route('article.show', ['article' => $article->id]) }}">Show</a>
                         <br>
-                        <a href="{{ route('article.edit.form', ['id' => $article->id]) }}">Edit</a>
+                        <a href="{{ route('article.edit.form', ['article' => $article->id]) }}">Edit</a>
+                        <form action="{{ route('article.delete', ['article' => $article->id]) }}" method="post">
+                            @csrf
+                            <button type="submit" class="btn btn-outline-danger">
+                                Delete
+                            </button>
+                        </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+    <div class="d-flex justify-content-center">
+        {!! $articles->links() !!}
+    </div>
 @endsection

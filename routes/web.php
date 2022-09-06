@@ -34,11 +34,14 @@ Route::post('/articles/create', [ArticleController::class, 'create'])
 Route::get('/articles', [ArticleController::class, 'list'])
     ->name('article.list');
 
-Route::get('/articles/{id}', [ArticleController::class, 'show'])
+Route::get('/articles/{article}', [ArticleController::class, 'show'])
     ->name('article.show');
 
-Route::get('/articles/{id}/edit', [ArticleController::class, 'editForm'])
+Route::get('/articles/{article}/edit', [ArticleController::class, 'editForm'])
     ->name('article.edit.form');
 
-Route::post('/articles/{id}/edit', [ArticleController::class, 'edit'])
+Route::post('/articles/{article}/edit', [ArticleController::class, 'edit'])
     ->name('article.edit');
+
+Route::post('/articles/{article}/delete', [ArticleController::class, 'delete'])
+    ->name('article.delete');

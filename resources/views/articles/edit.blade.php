@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="row">
-        <form action="{{ route('article.edit', ['id' => $article->id]) }}" method="post">
+        <form action="{{ route('article.edit', ['article' => $article->id]) }}" method="post">
             @csrf
             <div class="form-group">
                 <label for="title">{{ __('validation.attributes.title') }}</label>
