@@ -3,6 +3,7 @@
 use App\Http\Controllers\ArticleController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,23 +26,36 @@ Route::get('/report', [ReportController::class, 'show'])
 Route::post('/report', [ReportController::class, 'store'])
     ->name('report.store');
 
-Route::get('/articles/create', [ArticleController::class, 'createForm'])
-    ->name('article.create.form');
+Route::group(['prefix' => '/articles', 'as' => 'article.'], function () {
+    Route::get('', [ArticleController::class, 'list'])
+        ->name('list');
 
-Route::post('/articles/create', [ArticleController::class, 'create'])
-    ->name('article.create');
+    Route::get('/create', [ArticleController::class, 'createForm'])
+        ->name('create.form');
 
-Route::get('/articles', [ArticleController::class, 'list'])
-    ->name('article.list');
+    Route::post('/create', [ArticleController::class, 'create'])
+        ->name('create');
 
-Route::get('/articles/{article}', [ArticleController::class, 'show'])
-    ->name('article.show');
+    Route::group(['prefix' => '/{article}/edit'], function () {
+        Route::get('', [ArticleController::class, 'editForm'])
+            ->name('edit.form');
 
-Route::get('/articles/{article}/edit', [ArticleController::class, 'editForm'])
-    ->name('article.edit.form');
+        Route::post('', [ArticleController::class, 'edit'])
+            ->name('edit');
+    });
 
-Route::post('/articles/{article}/edit', [ArticleController::class, 'edit'])
-    ->name('article.edit');
+    Route::get('/{article}', [ArticleController::class, 'show'])
+        ->name('show');
 
-Route::post('/articles/{article}/delete', [ArticleController::class, 'delete'])
-    ->name('article.delete');
+
+    Route::post('/{article}/delete', [ArticleController::class, 'delete'])
+        ->name('delete');
+});
+
+Route::get('/sign-up', [UserController::class, 'signUpForm'])
+    ->name('sign-up.form');
+Route::post('/sign-up', [UserController::class, 'signUp'])->name('sign-up');
+
+
+Route::get('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
+    ->name('verify.email');

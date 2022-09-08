@@ -169,5 +169,8 @@ return [
         'title' => 'Title',
         'email' => 'Email',
         'text' => 'Text',
+        'name' => 'Name',
+        'password' => 'Password',
+        'password_confirmation' => 'Confirm Password',
     ],
 ];
