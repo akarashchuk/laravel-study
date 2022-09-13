@@ -17,20 +17,33 @@
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav">
-                    <li class="nav-item">
-                        <a class="nav-link"  href="{{  route('sign-up.form') }}">Sign Up</a>
-                    </li>
+                <ul class="navbar-nav mr-auto">
+                    @if (!auth()->check())
+                        <li class="nav-item">
+                            <a class="nav-link"  href="{{  route('sign-up.form') }}">Sign Up</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link"  href="{{  route('login') }}">Sign In</a>
+                        </li>
+                    @endif
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('report') }}">Report</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('article.create.form') }}">Create Article</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ route('article.list') }}">Articles List</a>
-                    </li>
+                    @if (auth()->check())
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('article.create.form') }}">Create Article</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('article.list') }}">Articles List</a>
+                        </li>
+                    @endif
                 </ul>
+                @if (auth()->check())
+                    <form action="{{ route('logout') }}" method="post" class="form-inline">
+                        @csrf
+                        <button class="btn btn-danger">Logout</button>
+                    </form>
+                @endif
             </div>
         </div>
     </nav>

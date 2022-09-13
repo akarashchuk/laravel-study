@@ -6,6 +6,7 @@ use App\Http\Requests\Article\CreateRequest;
 use App\Http\Requests\Article\EditRequest;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ArticleController extends Controller
 {
@@ -45,7 +46,7 @@ class ArticleController extends Controller
 
     public function list(Request $request)
     {
-        $articles = Article::query()->paginate(1);
+        $articles = Article::query()->paginate(3);
 
         return view('articles.list', ['articles' => $articles]);
     }

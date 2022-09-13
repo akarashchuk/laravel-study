@@ -44,13 +44,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function setPasswordAttribute($value)
-    {
-        $this->attributes['password'] = Hash::make($value);
-    }
-
-//    protected function password()
+//    public function setPasswordAttribute($value)
 //    {
-//        return Attribute::make(set: static fn ($value) => Hash::make($value));
+//        $this->attributes['password'] = Hash::make($value);
 //    }
+
+    protected function password(): Attribute
+    {
+        return Attribute::make(set: function ($value) {
+            return Hash::make($value);
+        });
+    }
 }
