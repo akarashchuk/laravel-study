@@ -15,6 +15,17 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group">
+                <label for="">Categories</label>
+                @error('categories')
+                    <div>{{ $message }}</div>
+                @enderror
+                @foreach($categories as $category)
+                    <div class="form-check">
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="form-check-input"> {{ $category->name }}
+                    </div>
+                @endforeach
+            </div>
 
             <div class="form-group">
                 <label for="text">{{ __('validation.attributes.text') }}</label>

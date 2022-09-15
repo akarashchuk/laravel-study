@@ -34,13 +34,13 @@ class AuthController extends Controller
 
         session()->flash('error', 'The provided credentials are incorrect');
 
-        return redirect()->route('sign-in.form');
+        return redirect()->route('login');
     }
 
     public function logout()
     {
         Auth::logout();
 
-        return redirect()->route('sign-in.form');
+        return redirect()->route('login');
     }
 }

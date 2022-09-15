@@ -15,6 +15,20 @@
             </div>
 
             <div class="form-group">
+                <label for="">Categories</label>
+                @error('categories')
+                <div>{{ $message }}</div>
+                @enderror
+                @foreach($categories as $category)
+                    <div class="form-check">
+                        <input type="checkbox" name="categories[]" value="{{ $category->id }}" class="form-check-input"
+                        @if($article->categories->contains('id', $category->id)) checked @endif
+                        > {{ $category->name }}
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="form-group">
                 <label for="text">{{ __('validation.attributes.text') }}</label>
                 <textarea name="text" rows="3"
                           class="form-control @error('text') is-invalid @enderror"
