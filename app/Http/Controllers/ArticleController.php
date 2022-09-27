@@ -6,21 +6,26 @@ use App\Http\Requests\Article\CreateRequest;
 use App\Http\Requests\Article\EditRequest;
 use App\Models\Article;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
     public function createForm()
     {
+//        $this->authorize('create', Article::class);
         $categories = Category::all();
 
         return view('articles.create', compact('categories'));
     }
 
-    public function editForm(int $id)
+    public function editForm(Article $article)
     {
-        $article = Article::query()->findOrFail($id);
+//        Gate::forUser(User::query()->find(10))->authorize('edit-article');
+//        $this->authorize('edit', $article);
+//        Gate::authorize('edit-article', $article);
         $categories = Category::all();
 
         return view('articles.edit', compact('article', 'categories'));
@@ -71,6 +76,7 @@ class ArticleController extends Controller
 
     public function delete(Article $article)
     {
+//        Gate::authorize('delete', $article);
         $article->delete();
 
         session()->flash('success', 'Successfully deleted!');

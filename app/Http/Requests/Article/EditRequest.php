@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Article;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Gate;
 
 class EditRequest extends FormRequest
 {
@@ -13,6 +14,7 @@ class EditRequest extends FormRequest
      */
     public function authorize()
     {
+//        return Gate::allows('edit', $this->route('article'));
         return true;
     }
 

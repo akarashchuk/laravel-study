@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Models\Article;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -32,12 +33,12 @@ Route::group(['prefix' => '/articles', 'as' => 'article.', 'middleware' => 'auth
         ->name('list');
 
     Route::get('/create', [ArticleController::class, 'createForm'])
-        ->name('create.form');
+        ->name('create.form')->middleware('can:create,'. Article::class);
 
     Route::post('/create', [ArticleController::class, 'create'])
-        ->name('create');
+        ->name('create')->middleware('can:create,'. Article::class);
 
-    Route::group(['prefix' => '/{article}/edit'], function () {
+    Route::group(['prefix' => '/{article}/edit', 'middleware' => 'can:edit,article'], function () {
         Route::get('', [ArticleController::class, 'editForm'])
             ->name('edit.form');
 

@@ -21,13 +21,18 @@
                     <td>
                         <a href="{{ route('article.show', ['article' => $article->id]) }}">Show</a>
                         <br>
-                        <a href="{{ route('article.edit.form', ['article' => $article->id]) }}">Edit</a>
-                        <form action="{{ route('article.delete', ['article' => $article->id]) }}" method="post">
-                            @csrf
-                            <button type="submit" class="btn btn-outline-danger">
-                                Delete
-                            </button>
-                        </form>
+                        @can('edit', $article)
+                            <a href="{{ route('article.edit.form', ['article' => $article->id]) }}">Edit</a>
+                        @endcan
+
+                        @can('delete', $article)
+                            <form action="{{ route('article.delete', ['article' => $article->id]) }}" method="post">
+                                @csrf
+                                <button type="submit" class="btn btn-outline-danger">
+                                    Delete
+                                </button>
+                            </form>
+                        @endcan
                     </td>
                 </tr>
             @endforeach

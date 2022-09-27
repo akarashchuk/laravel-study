@@ -30,9 +30,11 @@
                         <a class="nav-link" href="{{ route('report') }}">Report</a>
                     </li>
                     @if (auth()->check())
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('article.create.form') }}">Create Article</a>
-                        </li>
+                        @can('create', \App\Models\Article::class)
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('article.create.form') }}">Create Article</a>
+                            </li>
+                        @endcan
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('article.list') }}">Articles List</a>
                         </li>
