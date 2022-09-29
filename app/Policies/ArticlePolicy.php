@@ -22,7 +22,7 @@ class ArticlePolicy
 
     public function create(User $user): bool
     {
-        return $user->role === 'admin';
+        return $user->role === User::ROLE_ADMIN;
     }
 
     public function edit(User $user, Article $article): bool
