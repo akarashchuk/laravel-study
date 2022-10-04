@@ -17,7 +17,7 @@
                             <span>{{ $category->name }}</span>
                         @endforeach
                     </p>
-                    <p>Content</p>
+                    <p>{{ $article->short_description }}</p>
                 </article>
             @endforeach
             <div class="d-flex justify-content-center">

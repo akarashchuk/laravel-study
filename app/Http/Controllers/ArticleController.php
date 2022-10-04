@@ -63,7 +63,7 @@ class ArticleController extends Controller
 
     public function list(Request $request)
     {
-        $articles = Article::query()->paginate(3);
+        $articles = Article::query()->withTrashed()->paginate(3);
 
         return view('articles.list', ['articles' => $articles]);
     }
@@ -82,5 +82,12 @@ class ArticleController extends Controller
         session()->flash('success', 'Successfully deleted!');
 
         return redirect()->route('article.list');
+    }
+
+    // Пример восстановления записи
+    public function restore(int $id)
+    {
+        $article = Article::onlyTrashed()->findOrFail($id);
+        $article->restore();
     }
 }

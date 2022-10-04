@@ -30,6 +30,7 @@ class EditRequest extends FormRequest
             'text' => ['required', 'min:50'],
             'categories' => ['required', 'array', 'min:1'],
             'categories.*' => ['required', 'exists:categories,id'],
+            'status' => ['required', 'in:draft,published'],
         ];
     }
 }

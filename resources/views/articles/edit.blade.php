@@ -37,6 +37,12 @@
                 <div class="invalid-feedback">{{ $message }}</div>
                 @enderror
             </div>
+            <div class="form-group">
+                <select name="status" class="form-select">
+                    <option value="draft" @selected($article->status === 'draft')>Draft</option>
+                    <option value="published" @selected($article->status === 'published')>Published</option>
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Submit</button>
         </form>
     </div>

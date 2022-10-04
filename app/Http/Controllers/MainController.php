@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use App\Models\Category;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,6 +14,7 @@ class MainController extends Controller
     {
         DB::enableQueryLog();
         $query = Article::query()
+            ->published()
             ->with(['user', 'categories'])
             ->latest();
 
@@ -47,5 +49,15 @@ class MainController extends Controller
         $categories = Category::all();
 
         return view('welcome', compact('articles', 'categories'));
+    }
+
+    public function todayArticles()
+    {
+        $articles = Article::query()
+            ->published()
+            ->whereDate('created_at', Carbon::today())
+            ->paginate(3);
+
+        return view('today', compact('articles'));
     }
 }
