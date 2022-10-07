@@ -2,6 +2,12 @@
 
 namespace App\Providers;
 
+use App\Events\UserLoggedIn;
+use App\Listeners\SendLoginAlert;
+use App\Listeners\StoreUserLoginHistory;
+use App\Listeners\UserEventSubsriber;
+use App\Models\Article;
+use App\Observers\ArticleObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -18,7 +24,21 @@ class EventServiceProvider extends ServiceProvider
         Registered::class => [
             SendEmailVerificationNotification::class,
         ],
+        UserLoggedIn::class => [
+            StoreUserLoginHistory::class,
+            SendLoginAlert::class,
+        ],
     ];
+
+//    protected $subscribe = [
+//        UserEventSubsriber::class,
+//    ];
+
+//    protected $observers = [
+//        Article::class => [
+//            ArticleObserver::class,
+//        ],
+//    ];
 
     /**
      * Register any events for your application.

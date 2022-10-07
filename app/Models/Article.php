@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\ArticleObserver;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -28,6 +29,13 @@ class Article extends Model
         'created_at',
         'updated_at',
     ];
+
+    public static function boot(): void
+    {
+        parent::boot();
+
+        self::observe(ArticleObserver::class);
+    }
 
     public function user()
     {

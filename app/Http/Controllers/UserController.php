@@ -23,7 +23,9 @@ class UserController extends Controller
         $user->save();
 
         Mail::to($user->email)->send(new EmailConfirm($user));
-
+        // Send to CRM
+        // Write Log
+        // ....
         session()->flash('success', 'Success!');
 
         return redirect()->route('main');

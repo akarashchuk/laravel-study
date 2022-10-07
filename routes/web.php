@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [MainController::class, 'index'])
+    ->middleware(['cookie-banner'])
     ->name('main');
 
 Route::get('/today', [MainController::class, 'todayArticles'])
@@ -31,7 +32,7 @@ Route::get('/report', [ReportController::class, 'show'])
 Route::post('/report', [ReportController::class, 'store'])
     ->name('report.store');
 
-Route::group(['prefix' => '/articles', 'as' => 'article.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => '/articles', 'as' => 'article.', 'middleware' => ['auth', 'cookie-banner']], function () {
     Route::get('', [ArticleController::class, 'list'])
         ->name('list');
 
