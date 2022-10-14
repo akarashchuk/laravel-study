@@ -19,6 +19,7 @@ class ArticleObserver
     public function updated(Article $article)
     {
         $isStatusChanged = $article->status !== $article->getOriginal('status');
+//        $article->isDirty('clean');
 
         if ($isStatusChanged && $article->status === 'published') {
             PublishedArticleEmail::dispatch($article);

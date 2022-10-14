@@ -7,12 +7,17 @@ use App\Http\Requests\Article\EditRequest;
 use App\Models\Article;
 use App\Models\Category;
 use App\Models\User;
+use App\Services\ArticleService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ArticleController extends Controller
 {
+    public function __construct(private ArticleService $articleService)
+    {
+    }
+
     public function createForm()
     {
 //        $this->authorize('create', Article::class);
@@ -34,15 +39,9 @@ class ArticleController extends Controller
     public function create(CreateRequest $request)
     {
         $data = $request->validated();
-        $article = new Article($data);
-
-//        $user = Auth::user();
         $user = $request->user();
 
-//        $article->user_id = $user->id;
-        $article->user()->associate($user);
-        $article->save();
-        $article->categories()->attach($data['categories']);
+        $article = $this->articleService->create($data, $user);
 
         session()->flash('success', 'Success!');
 
@@ -52,9 +51,7 @@ class ArticleController extends Controller
     public function edit(Article $article, EditRequest $request)
     {
         $data = $request->validated();
-        $article->fill($data);
-        $article->categories()->sync($data['categories']);
-        $article->save();
+        $this->articleService->edit($article, $data);
 
         session()->flash('success', 'Success!');
 
@@ -63,7 +60,7 @@ class ArticleController extends Controller
 
     public function list(Request $request)
     {
-        $articles = Article::query()->withTrashed()->paginate(3);
+        $articles = Article::query()->with(['categories', 'user'])->paginate(3);
 
         return view('articles.list', ['articles' => $articles]);
     }
@@ -77,8 +74,7 @@ class ArticleController extends Controller
     public function delete(Article $article)
     {
 //        Gate::authorize('delete', $article);
-        $article->delete();
-
+        $this->articleService->delete($article);
         session()->flash('success', 'Successfully deleted!');
 
         return redirect()->route('article.list');
