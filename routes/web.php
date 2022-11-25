@@ -69,3 +69,7 @@ Route::get('/verify-email/{id}/{hash}', [UserController::class, 'verifyEmail'])
 Route::get('/sign-in', [AuthController::class, 'signInForm'])->name('login');
 Route::post('/sign-in', [AuthController::class, 'signIn'])->name('sign-in');
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+Route::group(['spa'], function () {
+    Route::fallback(fn () => view('spa'));
+});
